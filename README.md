@@ -173,52 +173,6 @@ Run → Run 'app'
 • Búsqueda en tiempo real mientras escribes
 ```
 
----
-
-## 📊 Estructura de la Base de Datos
-
-### Diagrama ER (Entidad-Relación)
-
-```
-┌─────────────┐         ┌──────────────┐
-│  CLIENTES   │ 1───N   │   PEDIDOS    │
-├─────────────┤◄────────┤──────────────┤
-│ IdCliente ★ │         │ IdPedido ★   │
-│ Nombre      │         │ IdCliente ◆  │
-│ Dirección   │         │ Descripción  │
-│ Teléfono    │         │ Fecha        │
-└─────────────┘         └──────┬───────┘
-                                │ 1
-                                │
-                        ┌───────▼────────────────┐
-                        │ PEDIDO_PRODUCTOS       │
-                        ├────────────────────────┤
-                        │ Id ★                   │
-                        │ IdPedido ◆             │
-                        │ IdProducto ◆           │
-                        │ Cantidad               │
-                        └───────┬────────────────┘
-                                │ N
-                        ┌───────▼──────────┐
-                        │   PRODUCTOS      │
-                        ├──────────────────┤
-                        │ IdProducto ★     │
-                        │ Fabricante       │
-                        │ Valor            │
-                        └──────────────────┘
-
-┌──────────────┐         ┌──────────────┐
-│  FACTURAS    │─N───1──►│   PEDIDOS    │
-├──────────────┤         └──────────────┘
-│ IdFactura ★  │
-│ IdPedido ◆   │
-│ Fecha        │
-│ ValorTotal   │
-└──────────────┘
-
-Legend: ★ = Primary Key, ◆ = Foreign Key
-```
-
 ### Tablas y Columnas
 
 #### Clientes
