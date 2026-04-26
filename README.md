@@ -8,7 +8,7 @@ Una aplicación Android completa para gestionar las operaciones de una ferreter�
 ![Kotlin](https://img.shields.io/badge/Kotlin-7F52FF?style=for-the-badge&logo=kotlin&logoColor=white)
 ![SQLite](https://img.shields.io/badge/SQLite-003B57?style=for-the-badge&logo=sqlite&logoColor=white)
 
-**[Características](#-características) • [Instalación](#-instalación) • [Uso](#-uso) • [Estructura](#-estructura-del-proyecto) • [Arquitectura](#-arquitectura)**
+**[Características](#-características) • [Instalación](#-instalación) • [Uso](#-uso)**
 
 </div>
 
