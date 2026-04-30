@@ -13,7 +13,8 @@ class PedidoAdapter(
     private val pedidos: MutableList<Pedido>,
     private val onUpdate: (Pedido) -> Unit,
     private val onDelete: (Pedido) -> Unit,
-    private val onViewDetails: (Pedido) -> Unit
+    private val onViewDetails: (Pedido) -> Unit,
+    private val onFacturar: (Pedido) -> Unit
 ) : RecyclerView.Adapter<PedidoAdapter.PedidoViewHolder>() {
 
     inner class PedidoViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -23,6 +24,7 @@ class PedidoAdapter(
         private val btnDetalles: Button = itemView.findViewById(R.id.btn_detalles)
         private val btnEditar: Button = itemView.findViewById(R.id.btn_editar)
         private val btnEliminar: Button = itemView.findViewById(R.id.btn_eliminar)
+        private val btnFacturar: Button = itemView.findViewById(R.id.btn_facturar)
 
         fun bind(pedido: Pedido) {
             tvId.text = "Pedido #${pedido.idPedido}"
@@ -32,6 +34,7 @@ class PedidoAdapter(
             btnDetalles.setOnClickListener { onViewDetails(pedido) }
             btnEditar.setOnClickListener { onUpdate(pedido) }
             btnEliminar.setOnClickListener { onDelete(pedido) }
+            btnFacturar.setOnClickListener { onFacturar(pedido) }
         }
     }
 

@@ -75,94 +75,103 @@ class ProductosActivity : AppCompatActivity() {
     }
 
     private fun buscarProductos(query: String) {
-        val productos = repository.buscarPorFabricante(query).toMutableList()
+        val productos = repository.buscar(query).toMutableList()
         adapter.actualizarDatos(productos)
     }
 
 
 
     private fun mostrarDialogoAgregarProducto() {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Agregar Producto")
-
         val layout = android.widget.LinearLayout(this).apply {
             orientation = android.widget.LinearLayout.VERTICAL
-            setPadding(16, 16, 16, 16)
+            setPadding(48, 16, 48, 16)
         }
 
-        val etFabricante = EditText(this).apply {
-            hint = "Fabricante"
-        }
+        val etNombre = EditText(this).apply { hint = "Nombre del producto (ej: Rodamiento 6205)" }
+        val etFabricante = EditText(this).apply { hint = "Fabricante (ej: SKF)" }
         val etValor = EditText(this).apply {
-            hint = "Valor"
-            inputType = android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL
+            hint = "Precio"
+            inputType = android.text.InputType.TYPE_CLASS_NUMBER or android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL
         }
 
+        layout.addView(etNombre)
         layout.addView(etFabricante)
         layout.addView(etValor)
 
-        builder.setView(layout)
-        builder.setPositiveButton("Guardar") { _, _ ->
-            if (etFabricante.text.isNotEmpty() && etValor.text.isNotEmpty()) {
+        AlertDialog.Builder(this)
+            .setTitle("Agregar Producto")
+            .setView(layout)
+            .setPositiveButton("Guardar") { _, _ ->
+                val nombre = etNombre.text.toString().trim()
+                val fabricante = etFabricante.text.toString().trim()
+                val valorStr = etValor.text.toString().trim()
+
+                if (nombre.isEmpty() || valorStr.isEmpty()) {
+                    Toast.makeText(this, "Nombre y precio son obligatorios", Toast.LENGTH_SHORT).show()
+                    return@setPositiveButton
+                }
                 try {
-                    val producto = Producto(
-                        fabricante = etFabricante.text.toString(),
-                        valor = etValor.text.toString().toDouble()
+                    val resultado = repository.insertar(
+                        Producto(nombre = nombre, fabricante = fabricante, valor = valorStr.toDouble())
                     )
-                    val resultado = repository.insertar(producto)
                     if (resultado > 0) {
                         Toast.makeText(this, "Producto agregado", Toast.LENGTH_SHORT).show()
                         cargarProductos()
-                    } else {
-                        Toast.makeText(this, "Error al agregar", Toast.LENGTH_SHORT).show()
                     }
                 } catch (e: Exception) {
                     Toast.makeText(this, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
                 }
             }
-        }
-        builder.setNegativeButton("Cancelar", null)
-        builder.show()
+            .setNegativeButton("Cancelar", null)
+            .show()
     }
 
     private fun mostrarDialogoEditarProducto(producto: Producto) {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Editar Producto")
-
         val layout = android.widget.LinearLayout(this).apply {
             orientation = android.widget.LinearLayout.VERTICAL
-            setPadding(16, 16, 16, 16)
+            setPadding(48, 16, 48, 16)
         }
 
-        val etFabricante = EditText(this).apply {
-            setText(producto.fabricante)
-        }
+        val etNombre = EditText(this).apply { setText(producto.nombre) }
+        val etFabricante = EditText(this).apply { setText(producto.fabricante) }
         val etValor = EditText(this).apply {
             setText(producto.valor.toString())
-            inputType = android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL
+            inputType = android.text.InputType.TYPE_CLASS_NUMBER or android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL
         }
 
+        layout.addView(etNombre)
         layout.addView(etFabricante)
         layout.addView(etValor)
 
-        builder.setView(layout)
-        builder.setPositiveButton("Guardar") { _, _ ->
-            try {
-                val productoActualizado = producto.copy(
-                    fabricante = etFabricante.text.toString(),
-                    valor = etValor.text.toString().toDouble()
-                )
-                val resultado = repository.actualizar(productoActualizado)
-                if (resultado > 0) {
-                    Toast.makeText(this, "Producto actualizado", Toast.LENGTH_SHORT).show()
-                    cargarProductos()
+        AlertDialog.Builder(this)
+            .setTitle("Editar Producto")
+            .setView(layout)
+            .setPositiveButton("Guardar") { _, _ ->
+                val nombre = etNombre.text.toString().trim()
+                val valorStr = etValor.text.toString().trim()
+
+                if (nombre.isEmpty() || valorStr.isEmpty()) {
+                    Toast.makeText(this, "Nombre y precio son obligatorios", Toast.LENGTH_SHORT).show()
+                    return@setPositiveButton
                 }
-            } catch (e: Exception) {
-                Toast.makeText(this, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+                try {
+                    val resultado = repository.actualizar(
+                        producto.copy(
+                            nombre = nombre,
+                            fabricante = etFabricante.text.toString().trim(),
+                            valor = valorStr.toDouble()
+                        )
+                    )
+                    if (resultado > 0) {
+                        Toast.makeText(this, "Producto actualizado", Toast.LENGTH_SHORT).show()
+                        cargarProductos()
+                    }
+                } catch (e: Exception) {
+                    Toast.makeText(this, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+                }
             }
-        }
-        builder.setNegativeButton("Cancelar", null)
-        builder.show()
+            .setNegativeButton("Cancelar", null)
+            .show()
     }
 
     private fun eliminarProducto(producto: Producto) {

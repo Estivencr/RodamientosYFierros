@@ -1,6 +1,7 @@
 package com.rodamientosyfierros.repository
 
 import android.content.ContentValues
+import android.database.sqlite.SQLiteDatabase
 import com.rodamientosyfierros.data.DatabaseHelper
 import com.rodamientosyfierros.models.Pedido
 import com.rodamientosyfierros.models.PedidoConDetalle
@@ -197,12 +198,13 @@ class PedidoRepository(private val dbHelper: DatabaseHelper) {
 
         val cursor = db.rawQuery(
             """
-                SELECT pp.${DatabaseHelper.COL_ID_PRODUCTO_FK}, 
+                SELECT pp.${DatabaseHelper.COL_ID_PRODUCTO_FK},
+                       p.${DatabaseHelper.COL_NOMBRE_PRODUCTO},
                        p.${DatabaseHelper.COL_FABRICANTE},
                        p.${DatabaseHelper.COL_VALOR},
                        pp.${DatabaseHelper.COL_CANTIDAD}
                 FROM ${DatabaseHelper.TABLE_PEDIDO_PRODUCTOS} pp
-                JOIN ${DatabaseHelper.TABLE_PRODUCTOS} p 
+                JOIN ${DatabaseHelper.TABLE_PRODUCTOS} p
                     ON pp.${DatabaseHelper.COL_ID_PRODUCTO_FK} = p.${DatabaseHelper.COL_ID_PRODUCTO}
                 WHERE pp.${DatabaseHelper.COL_ID_PEDIDO_FK} = ?
             """.trimIndent(),
@@ -213,13 +215,14 @@ class PedidoRepository(private val dbHelper: DatabaseHelper) {
             if (it.moveToFirst()) {
                 do {
                     val idProductoIdx = it.getColumnIndex(DatabaseHelper.COL_ID_PRODUCTO_FK)
+                    val nombreIdx = it.getColumnIndex(DatabaseHelper.COL_NOMBRE_PRODUCTO)
                     val fabricanteIdx = it.getColumnIndex(DatabaseHelper.COL_FABRICANTE)
                     val valorIdx = it.getColumnIndex(DatabaseHelper.COL_VALOR)
                     val cantidadIdx = it.getColumnIndex(DatabaseHelper.COL_CANTIDAD)
 
                     val productoEnPedido = ProductoEnPedido(
                         idProducto = it.getInt(idProductoIdx),
-                        nombre = "Producto ${it.getInt(idProductoIdx)}",
+                        nombre = it.getString(nombreIdx) ?: "",
                         fabricante = it.getString(fabricanteIdx) ?: "",
                         valor = it.getDouble(valorIdx),
                         cantidad = it.getInt(cantidadIdx)
@@ -236,6 +239,22 @@ class PedidoRepository(private val dbHelper: DatabaseHelper) {
             cliente = cliente,
             productos = productosEnPedido,
             valorTotal = valorTotal
+        )
+    }
+
+    // Si el producto ya está en el pedido, actualiza la cantidad (REPLACE)
+    fun agregarProducto(idPedido: Int, idProducto: Int, cantidad: Int): Long {
+        val db = dbHelper.writableDatabase
+        val values = ContentValues().apply {
+            put(DatabaseHelper.COL_ID_PEDIDO_FK, idPedido)
+            put(DatabaseHelper.COL_ID_PRODUCTO_FK, idProducto)
+            put(DatabaseHelper.COL_CANTIDAD, cantidad)
+        }
+        return db.insertWithOnConflict(
+            DatabaseHelper.TABLE_PEDIDO_PRODUCTOS,
+            null,
+            values,
+            SQLiteDatabase.CONFLICT_REPLACE
         )
     }
 }

@@ -8,13 +8,21 @@
     android:layout_marginBottom="8dp">
 
     <TextView
-        android:id="@+id/tv_producto_fabricante"
+        android:id="@+id/tv_producto_nombre"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="16sp"
         android:textStyle="bold"
         android:textColor="#4CAF50"
-        android:layout_marginBottom="4dp" />
+        android:layout_marginBottom="2dp" />
+
+    <TextView
+        android:id="@+id/tv_producto_fabricante"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="13sp"
+        android:textColor="#888888"
+        android:layout_marginBottom="2dp" />
 
     <TextView
         android:id="@+id/tv_producto_valor"

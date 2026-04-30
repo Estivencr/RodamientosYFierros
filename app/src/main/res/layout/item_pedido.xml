@@ -35,7 +35,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginBottom="4dp">
 
         <Button
             android:id="@+id/btn_detalles"
@@ -67,5 +68,13 @@
             android:backgroundTint="#F44336" />
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_facturar"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="Generar Factura"
+        android:textSize="12sp"
+        android:backgroundTint="#4CAF50" />
 
 </LinearLayout>

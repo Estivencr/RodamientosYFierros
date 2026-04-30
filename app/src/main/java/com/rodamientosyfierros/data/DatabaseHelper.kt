@@ -8,12 +8,12 @@ class DatabaseHelper(
     context: Context,
     name: String = "ferreteria.db",
     factory: SQLiteDatabase.CursorFactory? = null,
-    version: Int = 1
+    version: Int = 2
 ) : SQLiteOpenHelper(context, name, factory, version) {
 
     companion object {
         // Constantes de tablas y columnas
-        const val DB_VERSION = 1
+        const val DB_VERSION = 2
 
         // Tabla Clientes
         const val TABLE_CLIENTES = "Clientes"
@@ -25,6 +25,7 @@ class DatabaseHelper(
         // Tabla Productos
         const val TABLE_PRODUCTOS = "Productos"
         const val COL_ID_PRODUCTO = "IdProducto"
+        const val COL_NOMBRE_PRODUCTO = "Nombre"
         const val COL_FABRICANTE = "Fabricante"
         const val COL_VALOR = "Valor"
 
@@ -65,6 +66,7 @@ class DatabaseHelper(
         val createProductosTable = """
             CREATE TABLE $TABLE_PRODUCTOS (
                 $COL_ID_PRODUCTO INTEGER PRIMARY KEY AUTOINCREMENT,
+                $COL_NOMBRE_PRODUCTO TEXT NOT NULL,
                 $COL_FABRICANTE TEXT,
                 $COL_VALOR REAL
             )
