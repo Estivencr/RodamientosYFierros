@@ -173,62 +173,6 @@ Run → Run 'app'
 • Búsqueda en tiempo real mientras escribes
 ```
 
-### Tablas y Columnas
-
-#### Clientes
-```sql
-CREATE TABLE Clientes (
-    IdCliente INTEGER PRIMARY KEY AUTOINCREMENT,
-    Nombre TEXT NOT NULL,
-    Dirección TEXT,
-    Teléfono TEXT
-);
-```
-
-#### Productos
-```sql
-CREATE TABLE Productos (
-    IdProducto INTEGER PRIMARY KEY AUTOINCREMENT,
-    Fabricante TEXT,
-    Valor REAL
-);
-```
-
-#### Pedidos
-```sql
-CREATE TABLE Pedidos (
-    IdPedido INTEGER PRIMARY KEY AUTOINCREMENT,
-    IdCliente INTEGER NOT NULL,
-    Descripción TEXT,
-    Fecha TEXT,
-    FOREIGN KEY (IdCliente) REFERENCES Clientes(IdCliente)
-);
-```
-
-#### PedidoProductos (Relación N:M)
-```sql
-CREATE TABLE PedidoProductos (
-    Id INTEGER PRIMARY KEY AUTOINCREMENT,
-    IdPedido INTEGER NOT NULL,
-    IdProducto INTEGER NOT NULL,
-    Cantidad INTEGER,
-    FOREIGN KEY (IdPedido) REFERENCES Pedidos(IdPedido),
-    FOREIGN KEY (IdProducto) REFERENCES Productos(IdProducto),
-    UNIQUE(IdPedido, IdProducto)
-);
-```
-
-#### Facturas
-```sql
-CREATE TABLE Facturas (
-    IdFactura INTEGER PRIMARY KEY AUTOINCREMENT,
-    IdPedido INTEGER NOT NULL UNIQUE,
-    Fecha TEXT,
-    ValorTotal REAL,
-    FOREIGN KEY (IdPedido) REFERENCES Pedidos(IdPedido)
-);
-```
-
 ---
 
 ## 🏗️ Estructura del Proyecto
@@ -375,26 +319,13 @@ UI se refresca
 | Documentos | 6 |
 | **Total de Archivos** | **46** |
 
----
-
-
-## 📄 Licencia
-
-Este proyecto está disponible bajo la licencia MIT.
 
 ```
-MIT License
 
 Copyright (c) 2026 Natram (Estiven Cano Rendón)
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction...
 ```
 
-Puedes usar, modificar y distribuir este código para propósitos educativos.
-
----
 
 <div align="center">
 
