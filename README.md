@@ -329,7 +329,7 @@ Copyright (c) 2026 Natram (Estiven Cano Rendón)
 
 <div align="center">
 
-**Hecho con ❤️ **
+**Hecho con ❤️ por Natram**
 
 [⬆ Volver arriba](#ferretería-rodamientos-y-fierros---app-crud-android)
 
