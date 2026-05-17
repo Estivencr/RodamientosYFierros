@@ -1,72 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
-    android:layout_marginTop="35sp"
-    android:background="#f5f5f5">
+    android:background="@color/background"
+    android:paddingTop="32dp">
 
+    <!-- Header -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginBottom="16dp"
+        android:paddingHorizontal="16dp"
+        android:paddingBottom="16dp"
         android:gravity="center_vertical">
 
         <Button
             android:id="@+id/btn_volver"
+            style="@style/Widget.Material3.Button.TonalButton"
             android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:text="← Atrás"
+            android:layout_height="40dp"
+            android:text="Atras"
             android:textSize="14sp"
-            android:backgroundTint="#757575"
             android:layout_marginEnd="12dp" />
 
-        <TextView
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Gestión de Facturas"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="#333333" />
+            android:orientation="vertical">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Facturas"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="@color/color_facturas" />
+
+            <View
+                android:layout_width="32dp"
+                android:layout_height="3dp"
+                android:background="@color/color_facturas"
+                android:layout_marginTop="3dp" />
+        </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
+    <!-- Tarjeta de ingresos totales -->
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="#E8F5E9"
-        android:padding="12dp"
+        android:layout_marginHorizontal="16dp"
         android:layout_marginBottom="16dp"
-        android:gravity="center_vertical">
+        app:cardCornerRadius="12dp"
+        app:cardElevation="2dp"
+        app:cardBackgroundColor="?attr/colorTertiaryContainer">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Total de ingresos: "
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:textColor="#1B5E20" />
-
-        <TextView
-            android:id="@+id/tv_total_ingresos"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="$0.00"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:textColor="#27AE60"
-            android:gravity="end" />
+            android:orientation="vertical">
 
-    </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:background="?attr/colorTertiary" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="16dp"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Total de ingresos"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="?attr/colorOnTertiaryContainer" />
+
+                <TextView
+                    android:id="@+id/tv_total_ingresos"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="$0.00"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:textColor="?attr/colorTertiary" />
+            </LinearLayout>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Lista -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_facturas"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="8dp" />
+        android:paddingHorizontal="12dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="16dp"
+        android:clipToPadding="false" />
 
 </LinearLayout>

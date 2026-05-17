@@ -1,7 +1,28 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
     <style name="Base.Theme.RodamientosYFierros" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="colorPrimary">#90CAF9</item>
+        <item name="colorOnPrimary">#003373</item>
+        <item name="colorPrimaryContainer">#004BA0</item>
+        <item name="colorOnPrimaryContainer">#D6E4FF</item>
+        <item name="colorSecondary">#FFB59D</item>
+        <item name="colorOnSecondary">#5F1900</item>
+        <item name="colorSecondaryContainer">#863900</item>
+        <item name="colorOnSecondaryContainer">#FFDBCC</item>
+        <item name="colorTertiary">#9CD49A</item>
+        <item name="colorOnTertiary">#003909</item>
+        <item name="colorTertiaryContainer">#1A5E1F</item>
+        <item name="colorOnTertiaryContainer">#B9F0B8</item>
+        <item name="colorError">#FFB4AB</item>
+        <item name="colorOnError">#690005</item>
+        <item name="colorErrorContainer">#93000A</item>
+        <item name="colorOnErrorContainer">#FFDAD6</item>
+        <item name="android:colorBackground">#1C1B1F</item>
+        <item name="colorOnBackground">#E6E1E5</item>
+        <item name="colorSurface">#2B2B2F</item>
+        <item name="colorOnSurface">#E6E1E5</item>
+        <item name="colorSurfaceVariant">#44464F</item>
+        <item name="colorOnSurfaceVariant">#C4C6D0</item>
+        <item name="colorOutline">#8E9099</item>
+        <item name="colorOutlineVariant">#44464F</item>
     </style>
 </resources>

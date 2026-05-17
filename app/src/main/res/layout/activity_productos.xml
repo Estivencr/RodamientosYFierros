@@ -3,59 +3,85 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
-    android:layout_marginTop="35sp"
-    android:background="#f5f5f5">
+    android:background="@color/background"
+    android:paddingTop="32dp">
 
+    <!-- Header -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginBottom="16dp"
+        android:paddingHorizontal="16dp"
+        android:paddingBottom="16dp"
         android:gravity="center_vertical">
 
         <Button
             android:id="@+id/btn_volver"
+            style="@style/Widget.Material3.Button.TonalButton"
             android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:text="← Atrás"
+            android:layout_height="40dp"
+            android:text="Atras"
             android:textSize="14sp"
-            android:backgroundTint="#757575"
             android:layout_marginEnd="12dp" />
 
-        <TextView
+        <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Gestión de Productos"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="#333333" />
+            android:orientation="vertical">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Productos"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="@color/color_productos" />
+
+            <View
+                android:layout_width="32dp"
+                android:layout_height="3dp"
+                android:background="@color/color_productos"
+                android:layout_marginTop="3dp" />
+        </LinearLayout>
     </LinearLayout>
 
-    <EditText
-        android:id="@+id/et_buscar_producto"
+    <!-- Busqueda y boton agregar -->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:hint="Buscar por fabricante..."
-        android:padding="12dp"
-        android:background="@android:drawable/edit_text"
-        android:layout_marginBottom="12dp" />
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingHorizontal="16dp"
+        android:paddingBottom="12dp">
 
-    <Button
-        android:id="@+id/btn_agregar_producto"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:text="+ Agregar Nuevo Producto"
-        android:textSize="16sp"
-        android:layout_marginBottom="16dp"
-        android:backgroundTint="#4CAF50" />
+        <EditText
+            android:id="@+id/et_buscar_producto"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="Buscar por fabricante..."
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:background="@drawable/bg_search"
+            android:inputType="text"
+            android:layout_marginBottom="10dp" />
 
+        <Button
+            android:id="@+id/btn_agregar_producto"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="+ Agregar Nuevo Producto"
+            android:textSize="15sp"
+            android:backgroundTint="@color/color_productos" />
+    </LinearLayout>
+
+    <!-- Lista -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_productos"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="8dp" />
+        android:paddingHorizontal="12dp"
+        android:paddingTop="4dp"
+        android:paddingBottom="16dp"
+        android:clipToPadding="false" />
 
 </LinearLayout>
